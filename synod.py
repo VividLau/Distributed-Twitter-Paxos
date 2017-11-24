@@ -52,7 +52,7 @@ class Connection:
             pkl_file = open('log.pkl', 'rb')
             self.log = pickle.load(pkl_file)
         except OSError as e:
-            self.log = [{'Start': 'Site %s started at %s' % (self.id_self, str(datetime.datetime.now()))}]
+            self.log = [{'Start': 'Site %s started at %s' % (self.id_self, str(datetime.datetime.utcnow()))}]
             if e.errno != 2:
                 raise e
 
