@@ -20,13 +20,15 @@ class Connection:
         # variable for leader election
         self.leader = False
 
+        # in-memory data structure for log (tweet) and block
         self.log = []
         self.id_self = None
         self.block = [[0 for i in range(5)] for i in range(5)]
 
         self.port = 8789
         self.host = '0.0.0.0'
-
+        
+        # no use in paxos but useful in this project
         self.failed_site = 0
         self.failed_sock = []
 
@@ -54,7 +56,6 @@ class Connection:
             self.log = pickle.load(pkl_file)
             pkl_file.close()
         except OSError as e:
-            # self.log = [{'Start': 'Site %s started at %s' % (self.id_self, str(datetime.datetime.utcnow()))}]
             if e.errno != 2:
                 raise e
 
@@ -90,8 +91,6 @@ class Connection:
             decode_data = pickle.loads(rough_data)
             self.synod_accept(client_sock, decode_data)
 
-            # print(address[0] + ' say: ' + str(decode_data))
-
         client_sock.close()
         self.list_listen_sock.remove(client_sock)
 
@@ -107,8 +106,6 @@ class Connection:
 
             decode_data = pickle.loads(rough_data)
             self.synod_accept(connected_sock, decode_data)
-
-            # print('server say:' + str(decode_data))
 
         connected_sock.close()
         self.list_connect_sock.remove(connected_sock)
