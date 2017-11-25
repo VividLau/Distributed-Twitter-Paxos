@@ -311,7 +311,7 @@ if __name__ == '__main__':
         connected_thread.start()
 
     print('Welcome!')
-    print('We have ' + str(cinstance.failed_site) + ' downed site(s).')
+    print('We have ' + str(cinstance.failed_site + 1) + ' downed site(s).')
 
     while True:
         time.sleep(0.5)
