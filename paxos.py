@@ -30,6 +30,7 @@ class Connection:
         self.failed_site = 0
         self.failed_sock = []
 
+        # can be more consice
         self.connectsock1 = socket(AF_INET, SOCK_STREAM)
         self.connectsock2 = socket(AF_INET, SOCK_STREAM)
         self.connectsock3 = socket(AF_INET, SOCK_STREAM)
