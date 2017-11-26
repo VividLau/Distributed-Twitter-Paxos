@@ -223,11 +223,6 @@ if __name__ == '__main__':
         if choice == 'down':
             print('We have ' + str(cinstance.failed_site) + ' downed site(s).')
 
-        if choice == 'test':
-            event = {'name': cinstance.id_self, 'tweet': 'tweet', 'time': datetime.datetime.now()}
-            data = pickle.dumps(event)
-            print(type(data))
-
         else:
             continue
 
