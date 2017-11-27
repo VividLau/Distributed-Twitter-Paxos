@@ -23,6 +23,9 @@ class Connection:
 
         # variable for leader election
         self.leader = False
+        
+        # variable for update
+        self.is_updated = True
 
         self.log = []
         self.id_self = None
@@ -222,11 +225,14 @@ class Connection:
                     self.log[ID - 1] = v
                     print('write ' + str(v) + ' into log')
                     print()
-                else:
+                elif self.log[ID - 1] == v:
                     print('log already exist')
                     print()
                     created = False
-                    pass
+                else:
+                    v['logid'] = len(self.log)
+                    self.log.append(v)
+                    
             log_file = open('log.pkl', 'wb')
             pickle.dump(self.log, log_file)
             log_file.close()
@@ -320,6 +326,9 @@ class Connection:
                     if count > 3:
                         give_up = {'give_up': 'give_up'}
                         self.broadcast(give_up)
+                        if learning is True:
+                            print('fail to update this log !')
+                            self.is_updated = False
                         break
                     time.sleep(30)
 
@@ -415,8 +424,11 @@ class Connection:
         while gap > 0:
             self.synod_broadcast(update, True)
             time.sleep(1.2)
-            gap -= 1
-            update += 1
+            if self.is_updated is True:
+                gap -= 1
+                update += 1
+            else:
+                pass
         print('log has been updated')
         print()
         self.logid = []
@@ -500,7 +512,10 @@ if __name__ == '__main__':
 
         if choice == 'log':
             for logs in cinstance.log:
-                print(logs['name'], logs['op'], logs['time'])
+                if logs is None:
+                    print(logs)
+                else:
+                    print(logs['name'], logs['op'], logs['time'])
 
         if choice == 'original':
             for original in cinstance.log:
