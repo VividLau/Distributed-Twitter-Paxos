@@ -14,18 +14,14 @@ class Connection:
         self.ack_response = 0
         self.response_value = []
         self.ack_value = []
+        self.paxos_variable = [0, 0, None]
 
         # variable for learning missed log
         self.logid = []
-
-        # Max_prepareNum, accNum and accVal
-        self.paxos_variable = [0, 0, None]
+        self.is_updated = True
 
         # variable for leader election
         self.leader = False
-
-        # variable for update
-        self.is_updated = True
 
         self.log = []
         self.id_self = None
