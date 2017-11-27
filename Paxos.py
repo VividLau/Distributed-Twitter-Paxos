@@ -37,15 +37,6 @@ class Connection:
         self.failed_site = 0
         self.failed_sock = []
 
-        # self.connectsock1 = socket(AF_INET, SOCK_STREAM)
-        # self.connectsock2 = socket(AF_INET, SOCK_STREAM)
-        # self.connectsock3 = socket(AF_INET, SOCK_STREAM)
-        # self.connectsock4 = socket(AF_INET, SOCK_STREAM)
-        # self.connectsock_self = socket(AF_INET, SOCK_STREAM)
-        # self.list_connect_sock = \
-        #     [
-        #         self.connectsock1, self.connectsock2, self.connectsock3, self.connectsock4, self.connectsock_self
-        #     ]
         self.connectsock_self = socket(AF_INET, SOCK_STREAM)
         self.list_connect_sock = [self.new_socket() for i in range(4)]
 
