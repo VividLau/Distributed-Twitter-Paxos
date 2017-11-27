@@ -1,4 +1,5 @@
 # Distributed-Twitter-Paxos
 Using simplified Paxos algorithm to maintain logs in distributed twitter systems.
 
-***Pending function:***  
+***Bugs:***  
+when two sites learn missing log at the same time
