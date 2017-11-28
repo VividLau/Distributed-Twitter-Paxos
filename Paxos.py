@@ -414,16 +414,27 @@ class Connection:
         learn_event = {'name': self.id_self, 'ask': 'ask'}
         self.broadcast(learn_event)
         time.sleep(0.2)
-        try:
-            max_logid = max(self.logid)
-            gap = max_logid - len(self.log)
-        except ValueError:
-            gap = 0
-            print('timeout to get max log id from other sites!')
-            print('fail to update the log!')
-            print()
-        update = len(self.log) + 1
         count = 0
+        gap = 0
+        update = 0
+        
+        max_logid = max(self.logid)
+        if self.log == []:
+            gap = max_logid - len(self.log)
+            update = len(self.log) + 1
+        else:
+            for each_log in self.log:
+                if each_log is None:
+                    gap = max_logid - self.log.index(each_log)
+                    update = self.log.index(each_log) + 1
+                    break
+                elif self.log.index(each_log) == len(self.log) - 1:
+                    gap = max_logid - len(self.log)
+                    update = len(self.log) + 1
+                    break
+                else:
+                    pass
+
         while gap > 0:
             self.is_updated = True
             self.synod_broadcast(update, True)
