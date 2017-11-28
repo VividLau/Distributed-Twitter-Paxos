@@ -220,7 +220,7 @@ class Connection:
                     print()
                     created = False
                 else:
-                    v['logid'] = len(self.log)
+                    v['logid'] = len(self.log) + 1
                     self.log.append(v)
 
             log_file = open('log.pkl', 'wb')
