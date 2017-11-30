@@ -268,7 +268,7 @@ class Connection:
             self.ack_response = 0
 
             # if site is the leader:
-            if self.leader is True:
+            if self.leader is True and learning is False:
                 if learning is True:
                     leader_acc = {'accept': 'accept', 'accNum': 0, 'accVal': 'dummy', 'update': broadcast_event}
                 else:
@@ -313,14 +313,18 @@ class Connection:
                 if self.prepare_response < 3:
                     count += 1
                     m += 1
+                    self.response_value = []
+                    self.ack_value = []
                     if count > 2:
                         give_up = {'give_up': 'give_up'}
                         self.broadcast(give_up)
                         if learning is True:
                             print('fail to update this log !')
                             self.is_updated = False
+                        self.response_value = []
+                        self.ack_value = []
                         break
-                    time.sleep(4)
+                    time.sleep(30)
 
             # propose phase:
             if self.prepare_response > 2:
@@ -379,7 +383,10 @@ class Connection:
                     self.response_value = []
                     self.ack_value = []
                     break
-
+                else:
+                    self.response_value = []
+                    self.ack_value = []
+                   
     def listen(self):
 
         while True:
