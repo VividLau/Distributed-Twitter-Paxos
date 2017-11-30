@@ -266,6 +266,8 @@ class Connection:
         while True:
             self.prepare_response = 0
             self.ack_response = 0
+            self.response_value = []
+            self.ack_value = []
 
             # if site is the leader:
             if self.leader is True and learning is False:
@@ -291,12 +293,12 @@ class Connection:
                     print('v is ' + str(commit['value']))
                     print()
                     self.broadcast(commit)
-                    self.response_value = []
-                    self.ack_value = []
                     break
                 else:
                     self.ack_response = 0
                     self.leader = False
+                    self.response_value = []
+                    self.ack_value = []
                     pass
 
             # prepare phase:
@@ -321,8 +323,6 @@ class Connection:
                         if learning is True:
                             print('fail to update this log !')
                             self.is_updated = False
-                        self.response_value = []
-                        self.ack_value = []
                         break
                     time.sleep(30)
 
@@ -380,12 +380,7 @@ class Connection:
                     print('v is ' + str(commit['value']))
                     print()
                     self.broadcast(commit)
-                    self.response_value = []
-                    self.ack_value = []
                     break
-                else:
-                    self.response_value = []
-                    self.ack_value = []
                    
     def listen(self):
 
