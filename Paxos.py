@@ -381,6 +381,8 @@ class Connection:
                     print()
                     self.broadcast(commit)
                     break
+                else:
+                    m += 1
                    
     def listen(self):
 
