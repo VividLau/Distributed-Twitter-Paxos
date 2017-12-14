@@ -167,6 +167,7 @@ class Connection:
                   % (decode_data['accNum'], Max_prepare))
             print()
             if decode_data['accNum'] >= Max_prepare:
+                self.paxos_variable[0] = decode_data['accNum']
                 self.paxos_variable[1] = decode_data['accNum']
                 self.paxos_variable[2] = decode_data['accVal']
 
